@@ -36,10 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_vector_icons: ^1.0.0
   google_fonts: ^2.3.1
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  test: ^1.19.5
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
