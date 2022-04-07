@@ -1,6 +1,4 @@
-
 import 'package:flutter/material.dart';
-
 
 extension NumberExtension on BuildContext {
   double get veryLowValue => dynamicHeight(0.005);
@@ -16,16 +14,13 @@ extension MediaQueryExtensions on BuildContext {
   double dynamicWidth(double value) => MediaQuery.of(this).size.width * value;
 
   double dynamicHeight(double value) => MediaQuery.of(this).size.height * value;
-
 }
-
 
 extension ContextExtension on BuildContext {
-    ThemeData get theme => Theme.of(this);
-
+  ThemeData get appTheme => Theme.of(this);
 }
 
-extension PaddingExtension  on BuildContext {
+extension PaddingExtension on BuildContext {
   //All
   EdgeInsets get paddingAllVeryLow => EdgeInsets.all(veryLowValue);
 
@@ -36,19 +31,26 @@ extension PaddingExtension  on BuildContext {
   EdgeInsets get paddingAllHigh => EdgeInsets.all(highValue);
 
   //Horizontal
-  EdgeInsets get paddingHorizontalLow => EdgeInsets.symmetric(horizontal: lowValue);
+  EdgeInsets get paddingHorizontalLow =>
+      EdgeInsets.symmetric(horizontal: lowValue);
 
-  EdgeInsets get paddingHorizontalMedium => EdgeInsets.symmetric(horizontal: mediumValue);
+  EdgeInsets get paddingHorizontalMedium =>
+      EdgeInsets.symmetric(horizontal: mediumValue);
 
-  EdgeInsets get paddingHorizontalHigh => EdgeInsets.symmetric(horizontal: highValue);
+  EdgeInsets get paddingHorizontalHigh =>
+      EdgeInsets.symmetric(horizontal: highValue);
 
   //Vertical
 
   EdgeInsets get paddingVerticalLow => EdgeInsets.symmetric(vertical: lowValue);
+  EdgeInsets get paddingVerticalVeryLow =>
+      EdgeInsets.symmetric(vertical: veryLowValue);
 
-  EdgeInsets get paddingVerticalMedium => EdgeInsets.symmetric(vertical: mediumValue);
+  EdgeInsets get paddingVerticalMedium =>
+      EdgeInsets.symmetric(vertical: mediumValue);
 
-  EdgeInsets get paddingVerticalHigh => EdgeInsets.symmetric(vertical: highValue);
+  EdgeInsets get paddingVerticalHigh =>
+      EdgeInsets.symmetric(vertical: highValue);
 
   //Only top
   EdgeInsets get paddingOnlyTopVeryLow => EdgeInsets.only(top: veryLowValue);
@@ -63,9 +65,11 @@ extension PaddingExtension  on BuildContext {
 
   EdgeInsets get paddingOnlyBottomLow => EdgeInsets.only(bottom: lowValue);
 
-  EdgeInsets get paddingOnlyBottomVeryLow => EdgeInsets.only(bottom: veryLowValue);
+  EdgeInsets get paddingOnlyBottomVeryLow =>
+      EdgeInsets.only(bottom: veryLowValue);
 
-  EdgeInsets get paddingOnlyBottomMedium => EdgeInsets.only(bottom: mediumValue);
+  EdgeInsets get paddingOnlyBottomMedium =>
+      EdgeInsets.only(bottom: mediumValue);
 
   EdgeInsets get paddingOnlyBottomHigh => EdgeInsets.only(bottom: highValue);
 
@@ -81,12 +85,10 @@ extension PaddingExtension  on BuildContext {
 
   EdgeInsets get paddingOnlyRightLow => EdgeInsets.only(right: lowValue);
 
-  EdgeInsets get paddingOnlyRightVeryLow => EdgeInsets.only(right: veryLowValue);
+  EdgeInsets get paddingOnlyRightVeryLow =>
+      EdgeInsets.only(right: veryLowValue);
 
   EdgeInsets get paddingOnlyRightMedium => EdgeInsets.only(right: mediumValue);
 
   EdgeInsets get paddingOnlyRightHigh => EdgeInsets.only(right: highValue);
-
-
 }
-

@@ -43,13 +43,13 @@ class _HomePageDetailsState extends State<HomePageDetails> {
         children: [
           Text(
             "Description",
-            style: context.theme.textTheme.headline6,
+            style: context.appTheme.textTheme.headline6,
           ),
           Padding(
             padding: context.paddingVerticalLow,
             child: Text(
               "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam suscipit massa quis lobortis aliquet. Aliquam erat tortor, lacinia sit amet volutpat vitae, sollicitudin non nisl. In scelerisque laoreet turpis vehicula fermentum.",
-              style: context.theme.textTheme.subtitle1!
+              style: context.appTheme.textTheme.subtitle1!
                   .copyWith(color: Colors.grey.shade600),
             ),
           ),
@@ -57,8 +57,8 @@ class _HomePageDetailsState extends State<HomePageDetails> {
             onTap: () {},
             child: Text(
               "Read more",
-              style: context.theme.textTheme.subtitle1!.copyWith(
-                  color: context.theme.primaryColor,
+              style: context.appTheme.textTheme.subtitle1!.copyWith(
+                  color: context.appTheme.primaryColor,
                   fontWeight: FontWeight.bold),
             ),
           ),
@@ -83,14 +83,14 @@ class _HomePageDetailsState extends State<HomePageDetails> {
             onPressed: () {},
             child: Icon(
               Icons.remove,
-              color: context.theme.primaryColor,
+              color: context.appTheme.primaryColor,
             ),
           ),
           Padding(
             padding: context.paddingHorizontalLow,
             child: Text(
               "0",
-              style: context.theme.textTheme.headline5!
+              style: context.appTheme.textTheme.headline5!
                   .copyWith(fontWeight: FontWeight.bold),
             ),
           ),
@@ -104,7 +104,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
             onPressed: () {},
             child: Icon(
               Icons.add,
-              color: context.theme.primaryColor,
+              color: context.appTheme.primaryColor,
             ),
           ),
         ],
@@ -125,13 +125,13 @@ class _HomePageDetailsState extends State<HomePageDetails> {
               children: [
                 Text(
                   "Vegetable",
-                  style: context.theme.textTheme.subtitle1!.copyWith(
+                  style: context.appTheme.textTheme.subtitle1!.copyWith(
                       color: Colors.grey.shade500, fontWeight: FontWeight.bold),
                 ),
                 Padding(
                   padding: context.paddingOnlyTopVeryLow,
                   child: Text("Sainsbury's Broccoli Florets 160g",
-                      style: context.theme.textTheme.headline5!
+                      style: context.appTheme.textTheme.headline5!
                           .copyWith(fontWeight: FontWeight.bold, fontSize: 26)),
                 ),
                 Padding(
@@ -140,15 +140,15 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                     children: [
                       Text(
                         "\$10.50",
-                        style: context.theme.textTheme.headline5!.copyWith(
-                            color: context.theme.primaryColor,
+                        style: context.appTheme.textTheme.headline5!.copyWith(
+                            color: context.appTheme.primaryColor,
                             fontWeight: FontWeight.bold),
                       ),
                       Padding(
                         padding: context.paddingOnlyLeftLow,
                         child: Text(
                           "\$15.00",
-                          style: context.theme.textTheme.subtitle1!.copyWith(
+                          style: context.appTheme.textTheme.subtitle1!.copyWith(
                               color: Colors.grey.shade700,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.lineThrough),
@@ -217,7 +217,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
   Container buildBottomNavBar(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: context.theme.scaffoldBackgroundColor,
+          color: context.appTheme.scaffoldBackgroundColor,
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.5),
@@ -238,12 +238,12 @@ class _HomePageDetailsState extends State<HomePageDetails> {
               children: [
                 Text(
                   "\$30.50",
-                  style: context.theme.textTheme.headline5!
+                  style: context.appTheme.textTheme.headline5!
                       .copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   "2 items",
-                  style: context.theme.textTheme.subtitle1!
+                  style: context.appTheme.textTheme.subtitle1!
                       .copyWith(color: Colors.grey.shade700),
                 ),
               ],
@@ -265,7 +265,7 @@ class _HomePageDetailsState extends State<HomePageDetails> {
                       children: [
                         Text(
                           "Add to Basket",
-                          style: context.theme.textTheme.subtitle1!
+                          style: context.appTheme.textTheme.subtitle1!
                               .copyWith(color: Colors.white),
                         ),
                         Padding(

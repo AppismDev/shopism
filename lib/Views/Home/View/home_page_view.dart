@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:get/get.dart';
+import 'package:shopism/Controllers/HomePageController.dart';
 import 'package:shopism/Core/Extensions/context_extensions.dart';
 import 'package:shopism/Views/Cart/View/cart_page_view.dart';
 import 'package:shopism/Widgets/Home/PopularProductCard.dart';
@@ -14,6 +16,7 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   late PageController _pageController;
+  late HomePageController _homePageController = Get.put(HomePageController());
   @override
   void initState() {
     super.initState();
@@ -23,6 +26,7 @@ class _HomePageViewState extends State<HomePageView> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
+      key: PageStorageKey("key"),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -35,7 +39,7 @@ class _HomePageViewState extends State<HomePageView> {
             buildPopularProductsRow(context),
             buildPopularProducts(context),
             SizedBox(
-              height: context.dynamicHeight(0.1),
+              height: context.dynamicHeight(0.12),
             ),
           ],
         ),
@@ -66,23 +70,33 @@ class _HomePageViewState extends State<HomePageView> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: context.paddingOnlyBottomVeryLow,
-                child: Text(
-                  "Popular Products",
-                  style: context.theme.textTheme.headline6,
+          Expanded(
+            flex: 4,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: context.paddingOnlyBottomVeryLow,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      "Popular Products",
+                      style: context.theme.textTheme.headline6,
+                    ),
+                  ),
                 ),
-              ),
-              Text(
-                "Fresh product from our garden",
-                style: context.theme.textTheme.subtitle1!
-                    .copyWith(color: Colors.grey),
-              ),
-            ],
+                FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Text(
+                    "Fresh product from our garden",
+                    style: context.theme.textTheme.subtitle1!
+                        .copyWith(color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
           ),
+          Spacer(),
           TextButton(
               onPressed: () {},
               child: Row(
@@ -133,40 +147,46 @@ class _HomePageViewState extends State<HomePageView> {
 
   Widget buildCategoriesRow() {
     return Container(
-      height: context.dynamicHeight(0.16),
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 5,
-        itemBuilder: (context, index) {
-          return Container(
-            child: Padding(
-              padding: context.paddingAllLow,
-              child: Container(
-                child: Column(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        boxShadow: [BoxShadow(color: Colors.black)],
-                        border: Border.all(color: Colors.white, width: 4),
-                        shape: BoxShape.circle,
-                      ),
-                      child: CircleAvatar(
-                        radius: 30,
-                        backgroundImage: NetworkImage(
-                            "https://www.healthyeating.org/images/default-source/home-0.0/nutrition-topics-2.0/general-nutrition-wellness/2-2-2-3foodgroups_fruits_detailfeature.jpg?sfvrsn=64942d53_4"),
+      height: context.dynamicHeight(0.18),
+      child: Obx(() => _homePageController.categoriesLoading.value
+          ? Center(
+              child: CircularProgressIndicator(),
+            )
+          : ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: _homePageController.categories.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: Padding(
+                    padding: context.paddingAllLow,
+                    child: Container(
+                      child: Column(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [BoxShadow(color: Colors.black)],
+                              border: Border.all(color: Colors.white, width: 4),
+                              shape: BoxShape.circle,
+                            ),
+                            child: CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(_homePageController
+                                      .categories[index].categoryImageUrl ??
+                                  "https://erasmusnation-com.ams3.digitaloceanspaces.com/woocommerce-placeholder.png"),
+                            ),
+                          ),
+                          Padding(
+                            padding: context.paddingOnlyTopLow,
+                            child: Text(
+                                '${_homePageController.categories[index].categoryName}'),
+                          )
+                        ],
                       ),
                     ),
-                    Padding(
-                      padding: context.paddingOnlyTopLow,
-                      child: Text("Fruits"),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      ),
+                  ),
+                );
+              },
+            )),
     );
   }
 

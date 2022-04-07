@@ -19,7 +19,7 @@ class PopularProductCard extends StatelessWidget {
             ));
       },
       child: Container(
-        width: context.dynamicWidth(0.4),
+        width: context.dynamicWidth(0.5),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8),
           border: Border.all(color: Colors.grey.shade400),
@@ -28,40 +28,40 @@ class PopularProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  height: context.dynamicHeight(0.15),
-                  color: Colors.blue,
-                  child: Image.network(
-                    "https://gaziantepetyemekleri.com/wp-content/uploads/2021/04/mevsim-salatasi-tarifi.jpg",
-                    fit: BoxFit.fill,
+            Container(
+              child: Stack(
+                children: [
+                  Container(
+                    child: Image.network(
+                      "https://gaziantepetyemekleri.com/wp-content/uploads/2021/04/mevsim-salatasi-tarifi.jpg",
+                      fit: BoxFit.fitHeight,
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: 50,
-                      height: 20,
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomLeft,
-                          end: Alignment.topRight,
-                          colors: [Color(0xffF25D50), Color(0xffF2BB77)],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: 50,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight,
+                            colors: [Color(0xffF25D50), Color(0xffF2BB77)],
+                          ),
                         ),
                       ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.favorite_outline,
-                        color: Colors.white,
+                      GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.favorite_outline,
+                          color: Colors.white,
+                        ),
                       ),
-                    ),
-                  ],
-                )
-              ],
+                    ],
+                  )
+                ],
+              ),
             ),
             Padding(
               padding: context.paddingAllLow,
@@ -69,14 +69,14 @@ class PopularProductCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text("Vegetable",
-                      style: context.theme.textTheme.subtitle2!.copyWith(
+                      style: context.appTheme.textTheme.subtitle2!.copyWith(
                         color: Colors.grey,
                       )),
                   Text(
                     "Salad With Herbs Spices 50g",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: context.theme.textTheme.subtitle2!
+                    style: context.appTheme.textTheme.subtitle2!
                         .copyWith(fontSize: 18),
                   ),
                   Padding(
@@ -84,8 +84,9 @@ class PopularProductCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text("\$7.50",
-                            style: context.theme.textTheme.headline6!
-                                .copyWith(color: context.theme.primaryColor)),
+                            style: context.appTheme.textTheme.headline6!
+                                .copyWith(
+                                    color: context.appTheme.primaryColor)),
                         Padding(
                           padding: context.paddingOnlyLeftLow,
                           child: Text(
