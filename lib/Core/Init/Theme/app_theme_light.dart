@@ -5,6 +5,7 @@ import 'package:shopism/Core/Init/Theme/i_app_theme.dart';
 
 class AppThemeLight implements IAppTheme {
   static final AppThemeLight _instance = AppThemeLight._init();
+
   static AppThemeLight get instance => _instance;
 
   AppThemeLight._init();
@@ -12,6 +13,15 @@ class AppThemeLight implements IAppTheme {
   @override
   ThemeData themeData = ThemeData.light().copyWith(
       primaryColor: Color(0xffE58228),
+      navigationBarTheme: NavigationBarThemeData().copyWith(
+        indicatorColor: Colors.white.withOpacity(0.3),
+        backgroundColor: Colors.teal,
+        height: 60,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        // iconTheme: MaterialStateProperty.all<IconThemeData>(IconThemeData(color: Colors.white))
+      ),
+      bottomNavigationBarTheme:
+          BottomNavigationBarThemeData().copyWith(selectedItemColor: Color(0xffE58228), selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold)),
       tabBarTheme: TabBarTheme().copyWith(
         unselectedLabelColor: Colors.grey,
         labelColor: Color(0xffE58228),

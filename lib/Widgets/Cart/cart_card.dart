@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shopism/Core/Extensions/context_extensions.dart';
 
+import '../../Models/Cart/cart_model.dart';
+import '../../Models/Product/product_model.dart';
+
 class CartCard extends StatefulWidget {
-  const CartCard({Key? key}) : super(key: key);
+  CartModel product;
+
+  CartCard({Key? key, required this.product}) : super(key: key);
 
   @override
   State<CartCard> createState() => _CartCardState();
@@ -10,33 +15,42 @@ class CartCard extends StatefulWidget {
 
 class _CartCardState extends State<CartCard> {
   final borderRadius = BorderRadius.circular(12);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24, vertical: 8),
+      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Dismissible(
         background: buildDismissibleBackground(),
         secondaryBackground: buildDismissibleSecondaryBackground(),
         key: ValueKey("card"),
         child: Container(
-          height: context.dynamicHeight(0.15),
+          height: 160,
           child: Card(
             clipBehavior: Clip.antiAlias,
             shape: RoundedRectangleBorder(
               borderRadius: borderRadius,
             ),
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.network(
-                  "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg",
-                  width: context.dynamicWidth(0.35),
-                  height: double.infinity,
-                  fit: BoxFit.cover,
+                Container(
+                  width: 120,
+                  color: Colors.red,
+                  child: Image.network(
+                    "${widget.product.imageURL ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg"},",
+                    errorBuilder: (context, error, stackTrace) {
+                      return Image.network("https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",
+                        fit: BoxFit.fitWidth,
+                      );
+                    },
+                    height: double.infinity,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
                 Expanded(
                   child: Padding(
-                    padding: context.paddingAllLow,
+                    padding: EdgeInsets.all(12),
                     child: buildCardContent(context),
                   ),
                 ),
@@ -54,17 +68,17 @@ class _CartCardState extends State<CartCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Apple",
-            style: context.appTheme.textTheme.headline6
-                ?.copyWith(fontWeight: FontWeight.bold),
+            "${widget.product.productName}",
+            style: context.appTheme.textTheme.headline6?.copyWith(fontWeight: FontWeight.bold),
+            maxLines: 2,
           ),
-          Text(
-            "Organic",
-            style: context.appTheme.textTheme.subtitle2
-                ?.copyWith(color: Colors.grey),
-          ),
+          // Text(
+          //   "Organic",
+          //   style: context.appTheme.textTheme.subtitle2?.copyWith(color: Colors.grey),
+          // ),
+          Spacer(),
           Padding(
-            padding: context.paddingOnlyTopLow,
+            padding: EdgeInsets.only(top: 12),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -76,7 +90,7 @@ class _CartCardState extends State<CartCard> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Text(
-                    "1kg",
+                    "${widget.product.quantity} adet",
                     style: context.appTheme.textTheme.subtitle2,
                   ),
                 ),

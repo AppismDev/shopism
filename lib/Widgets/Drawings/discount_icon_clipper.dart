@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class DiscountIconClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    print("size : " + size.toString());
     final path = Path();
     path.lineTo(0, 0);
     path.lineTo(0, size.height);
