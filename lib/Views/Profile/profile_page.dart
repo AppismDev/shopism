@@ -3,7 +3,9 @@ import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:shopism/Controllers/user_controller.dart';
 import 'package:shopism/Core/Constants/Enums/getx_keys.dart';
+import 'package:shopism/Core/Extensions/context_extensions.dart';
 import 'package:shopism/Core/Utils/utils.dart';
+import 'package:shopism/Widgets/SnackBar/snackbar_content.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -26,15 +28,8 @@ class _ProfilePageState extends State<ProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
-                height: 60,
+                height: context.dynamicHeight(0.1),
               ),
-              // Padding(
-              //   padding: EdgeInsets.only(top: 12, bottom: 24),
-              //   child: Text(
-              //     "Profile",
-              //     style: context.textTheme.headline5?.copyWith(fontWeight: FontWeight.bold),
-              //   ),
-              // ),
               Center(
                 child: Container(
                   width: 130,
@@ -43,7 +38,10 @@ class _ProfilePageState extends State<ProfilePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(42),
                   ),
-                  child: Image.network("https://www.pngitem.com/pimgs/m/99-998739_dale-engen-person-placeholder-hd-png-download.png", fit: BoxFit.fill,),
+                  child: Image.network(
+                    "https://www.pngitem.com/pimgs/m/99-998739_dale-engen-person-placeholder-hd-png-download.png",
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
               Padding(
@@ -141,6 +139,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           side: BorderSide(color: Colors.red, width: 2),
                           padding: EdgeInsets.symmetric(vertical: 12, horizontal: 12)),
                       onPressed: () {
+
                         if (!_userController.isLogoutLoading.value) {
                           _userController.signOut();
                         }
@@ -152,11 +151,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           Text("Çıkış Yap"),
                           if (_userController.isLogoutLoading.value) ...[
                             SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                ))
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                              ),
+                            )
                           ] else ...[
                             Icon(Icons.exit_to_app),
                           ]
@@ -166,7 +166,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   },
                 ),
               ),
-
             ],
           ),
         ),

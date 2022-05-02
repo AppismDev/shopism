@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopism/Widgets/SnackBar/snackbar_content.dart';
 
 extension NumberExtension on BuildContext {
   double get veryLowValue => dynamicHeight(0.005);
@@ -20,6 +21,21 @@ extension ContextExtension on BuildContext {
   ThemeData get appTheme => Theme.of(this);
 }
 
+extension SnackBarExtension on BuildContext {
+  SnackBar customSnackbar({required String title, required Icon icon, required String subtitle, required Color borderColor}) {
+    return SnackBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      content: SnackbarContent(
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+        borderColor: borderColor,
+      ),
+    );
+  }
+}
+
 extension PaddingExtension on BuildContext {
   //All
   EdgeInsets get paddingAllVeryLow => EdgeInsets.all(veryLowValue);
@@ -31,26 +47,21 @@ extension PaddingExtension on BuildContext {
   EdgeInsets get paddingAllHigh => EdgeInsets.all(highValue);
 
   //Horizontal
-  EdgeInsets get paddingHorizontalLow =>
-      EdgeInsets.symmetric(horizontal: lowValue);
+  EdgeInsets get paddingHorizontalLow => EdgeInsets.symmetric(horizontal: lowValue);
 
-  EdgeInsets get paddingHorizontalMedium =>
-      EdgeInsets.symmetric(horizontal: mediumValue);
+  EdgeInsets get paddingHorizontalMedium => EdgeInsets.symmetric(horizontal: mediumValue);
 
-  EdgeInsets get paddingHorizontalHigh =>
-      EdgeInsets.symmetric(horizontal: highValue);
+  EdgeInsets get paddingHorizontalHigh => EdgeInsets.symmetric(horizontal: highValue);
 
   //Vertical
 
   EdgeInsets get paddingVerticalLow => EdgeInsets.symmetric(vertical: lowValue);
-  EdgeInsets get paddingVerticalVeryLow =>
-      EdgeInsets.symmetric(vertical: veryLowValue);
 
-  EdgeInsets get paddingVerticalMedium =>
-      EdgeInsets.symmetric(vertical: mediumValue);
+  EdgeInsets get paddingVerticalVeryLow => EdgeInsets.symmetric(vertical: veryLowValue);
 
-  EdgeInsets get paddingVerticalHigh =>
-      EdgeInsets.symmetric(vertical: highValue);
+  EdgeInsets get paddingVerticalMedium => EdgeInsets.symmetric(vertical: mediumValue);
+
+  EdgeInsets get paddingVerticalHigh => EdgeInsets.symmetric(vertical: highValue);
 
   //Only top
   EdgeInsets get paddingOnlyTopVeryLow => EdgeInsets.only(top: veryLowValue);
@@ -65,11 +76,9 @@ extension PaddingExtension on BuildContext {
 
   EdgeInsets get paddingOnlyBottomLow => EdgeInsets.only(bottom: lowValue);
 
-  EdgeInsets get paddingOnlyBottomVeryLow =>
-      EdgeInsets.only(bottom: veryLowValue);
+  EdgeInsets get paddingOnlyBottomVeryLow => EdgeInsets.only(bottom: veryLowValue);
 
-  EdgeInsets get paddingOnlyBottomMedium =>
-      EdgeInsets.only(bottom: mediumValue);
+  EdgeInsets get paddingOnlyBottomMedium => EdgeInsets.only(bottom: mediumValue);
 
   EdgeInsets get paddingOnlyBottomHigh => EdgeInsets.only(bottom: highValue);
 
@@ -85,8 +94,7 @@ extension PaddingExtension on BuildContext {
 
   EdgeInsets get paddingOnlyRightLow => EdgeInsets.only(right: lowValue);
 
-  EdgeInsets get paddingOnlyRightVeryLow =>
-      EdgeInsets.only(right: veryLowValue);
+  EdgeInsets get paddingOnlyRightVeryLow => EdgeInsets.only(right: veryLowValue);
 
   EdgeInsets get paddingOnlyRightMedium => EdgeInsets.only(right: mediumValue);
 

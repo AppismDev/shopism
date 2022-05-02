@@ -46,6 +46,35 @@ class ShopismAPIService {
     }
   }
 
+  Future<List<Product>> getCategoryItems(CategoryModel categoryModel) async {
+    try {
+      List<Product> products = [];
+      Uri url = Uri.parse('${_baseUrl}/products/category/${categoryModel.categoryID}');
+      http.Response response = await http.get(url);
+
+      if (response.statusCode != HttpStatus.ok) {
+        return [];
+      }
+
+      dynamic body = jsonDecode(response.body);
+
+      if (body.runtimeType == List<dynamic>) {
+        List bodyList = body;
+        bodyList.forEach((element) {
+          Product product = Product.fromJson(element);
+          product.category = ProductCategory(id: categoryModel.categoryID, name: categoryModel.categoryName);
+          products.add(product);
+        });
+      } else {
+        return [];
+      }
+      return products;
+    } catch (e) {
+      print("[HATA] [ShopismAPIService] [getCategoryItems] --> " + e.toString());
+      return [];
+    }
+  }
+
   Future<List<CategoryModel>> getAllCategories() async {
     try {
       Uri url = Uri.parse('${_baseUrl}/categories');
@@ -77,6 +106,7 @@ class ShopismAPIService {
       Uri url = Uri.parse("${_baseUrl}/user/signup");
       http.Response response = await http.post(url, body: userModel.toJson());
 
+      print(response.body);
       if (response.statusCode != HttpStatus.ok) return false;
 
       return true;
@@ -139,7 +169,14 @@ class ShopismAPIService {
 
       (body as List<dynamic>).forEach((element) {
         CartModel _product = CartModel.fromJSON(element);
-        _cartItems.add(_product);
+        if (!_cartItems.any((element) => element.productId == _product.productId)) {
+          _cartItems.add(_product);
+        } else {
+          CartModel foundedProduct = _cartItems.firstWhere((element) => element.productId == _product.productId);
+          if (foundedProduct.quantity != null && _product.quantity != null) {
+            foundedProduct.quantity = (foundedProduct.quantity! + _product.quantity!);
+          }
+        }
       });
 
       return _cartItems;

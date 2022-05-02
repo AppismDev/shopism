@@ -7,11 +7,15 @@ import 'package:shopism/Widgets/Home/popular_product_card.dart';
 
 class AllProductsView extends StatelessWidget {
   AllProductsView({Key? key}) : super(key: key);
-  HomePageController _homePageController = Get.find(tag: GetxKeys.HOME_PAGE_CONTEROLLER.toString());
+  HomePageController _homePageController = Get.find(tag: GetxKeys.HOME_PAGE_CONTROLLER.toString());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(
+        "Top 50 Products",
+        style: context.appTheme.textTheme.headline5,
+      ),),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -20,28 +24,18 @@ class AllProductsView extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: Text(
-                    "All Products",
-                    style: context.appTheme.textTheme.headline5,
-                  ),
-                ),
                 GridView.builder(
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
                     itemCount: _homePageController.products.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 20,
-                        crossAxisSpacing: 10,
-                        mainAxisExtent: 230
-                    ),
+                    gridDelegate:
+                        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 10, mainAxisExtent: 230),
                     itemBuilder: (context, index) {
                       return Container(
                         child: PopularProductCard(product: _homePageController.products[index]),
                       );
-                    })              ],
+                    }),
+              ],
             ),
           ),
         ),

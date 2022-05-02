@@ -14,6 +14,7 @@ class AppThemeLight implements IAppTheme {
   ThemeData themeData = ThemeData.light().copyWith(
       primaryColor: Color(0xffE58228),
       navigationBarTheme: NavigationBarThemeData().copyWith(
+
         indicatorColor: Colors.white.withOpacity(0.3),
         backgroundColor: Colors.teal,
         height: 60,

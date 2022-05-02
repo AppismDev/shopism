@@ -6,6 +6,7 @@ import 'package:shopism/Core/Extensions/context_extensions.dart';
 import 'package:shopism/Core/Extensions/string_extensions.dart';
 import 'package:shopism/Models/User/login_model.dart';
 import 'package:shopism/Views/Signup/signup_view.dart';
+import 'package:shopism/Widgets/SnackBar/snackbar_content.dart';
 
 import '../../Controllers/user_controller.dart';
 import '../../Core/Constants/Enums/getx_keys.dart';
@@ -19,11 +20,12 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  UserController _userController = Get.find(tag: GetxKeys.USER_CONTROLLER.toString());
+  late UserController _userController;
 
   @override
   void initState() {
     super.initState();
+    _userController = Get.find(tag: GetxKeys.USER_CONTROLLER.toString());
     _emailController = TextEditingController();
     _passwordController = TextEditingController();
   }
@@ -87,14 +89,21 @@ class _LoginViewState extends State<LoginView> {
   Padding buildPasswordForm(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
-      child: TextFormField(
+      child: Obx(() => TextFormField(
+        obscureText: _userController.isLoginPasswordHidden.value,
         validator: (text) => text!.isLessThanThreeCharacters() ? "Please enter a password more than 3 characters" : null,
         controller: _passwordController,
         decoration: InputDecoration(
           icon: Icon(Feather.lock),
+          suffixIcon: IconButton(
+            icon: Icon(_userController.isLoginPasswordHidden.value ? Feather.eye_off : Feather.eye),
+            onPressed: () {
+              _userController.toggleLoginPasswordHidden();
+            },
+          ),
           hintText: "Password",
         ),
-      ),
+      )),
     );
   }
 
@@ -108,8 +117,21 @@ class _LoginViewState extends State<LoginView> {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
-        onPressed: () {
-          _userController.login(LoginModel(email: _emailController.text, password: _passwordController.text));
+        onPressed: () async {
+          bool isLogged = await _userController.login(LoginModel(email: _emailController.text, password: _passwordController.text));
+          if (!isLogged) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              context.customSnackbar(
+                title: "Giriş Başarısız",
+                subtitle: "Giriş yapılırken bir hata oluştu. Lütfen tekrar deneyin",
+                icon: Icon(
+                  AntDesign.closecircleo,
+                  color: Colors.red,
+                ),
+                borderColor: Colors.red,
+              ),
+            );
+          }
         },
         child: Obx(
           () => _userController.isLoginLoading.value
@@ -139,7 +161,7 @@ class _LoginViewState extends State<LoginView> {
             children: <WidgetSpan>[
               WidgetSpan(
                 child: GestureDetector(
-                  onTap: () => Navigator.pushReplacement(
+                  onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => SignupView(),

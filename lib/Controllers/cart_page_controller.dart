@@ -8,6 +8,7 @@ class CartPageController extends GetxController {
   ShopismAPIService _shopismAPIService = ShopismAPIService.instance;
 
   RxBool isCartLoading = false.obs;
+  RxBool isCartItemLoading = false.obs;
   RxList<CartModel> cartItems = <CartModel>[].obs;
 
   Future<void> getCartItems(String email) async {
@@ -18,6 +19,15 @@ class CartPageController extends GetxController {
         cartItems.addAll(_data);
       }
       isCartLoading.value = false;
+  }
+
+  Future<bool> removeCartItem(CartModel product) async{
+    isCartItemLoading.value = true;
+
+    cartItems.removeWhere((element) => element.productId == product.productId);
+    return false;
+
+
   }
 
   // Future<void> refreshCart(String email) async{

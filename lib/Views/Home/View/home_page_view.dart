@@ -9,6 +9,7 @@ import 'package:shopism/Core/Extensions/context_extensions.dart';
 import 'package:shopism/Core/Utils/utils.dart';
 import 'package:shopism/Views/AllProducts/View/all_products.dart';
 import 'package:shopism/Views/Cart/View/cart_page_view.dart';
+import 'package:shopism/Views/CategoryDetails/category_details_view.dart';
 import 'package:shopism/Widgets/Home/popular_product_card.dart';
 
 import '../../../Controllers/product_details_controller.dart';
@@ -22,11 +23,9 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   late PageController _pageController;
-   HomePageController _homePageController = Get.put(HomePageController(), tag: GetxKeys.HOME_PAGE_CONTEROLLER.toString());
-  UserController _userController =
-      Get.find(tag: GetxKeys.USER_CONTROLLER.toString());
+  HomePageController _homePageController = Get.put(HomePageController(), tag: GetxKeys.HOME_PAGE_CONTROLLER.toString());
+  UserController _userController = Get.find(tag: GetxKeys.USER_CONTROLLER.toString());
   Utils _utils = Utils.instance;
-
 
   @override
   void initState() {
@@ -50,7 +49,6 @@ class _HomePageViewState extends State<HomePageView> {
             buildCarouselPageView(),
             buildPopularProductsRow(context),
             buildPopularProducts(context),
-
           ],
         ),
       ),
@@ -69,11 +67,8 @@ class _HomePageViewState extends State<HomePageView> {
         } else {
           return ListView.separated(
             shrinkWrap: true,
-            separatorBuilder: (context, index) =>
-                Padding(padding: EdgeInsets.only(left: 10)),
-            itemCount: 10 < _homePageController.products.value.length
-                ? 10
-                : _homePageController.products.value.length,
+            separatorBuilder: (context, index) => Padding(padding: EdgeInsets.only(left: 10)),
+            itemCount: 10 < _homePageController.products.value.length ? 10 : _homePageController.products.value.length,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, index) {
               return PopularProductCard(
@@ -111,8 +106,7 @@ class _HomePageViewState extends State<HomePageView> {
                   fit: BoxFit.fitWidth,
                   child: Text(
                     "Fresh product from our garden",
-                    style: context.theme.textTheme.subtitle1!
-                        .copyWith(color: Colors.grey),
+                    style: context.theme.textTheme.subtitle1!.copyWith(color: Colors.grey),
                   ),
                 ),
               ],
@@ -121,7 +115,11 @@ class _HomePageViewState extends State<HomePageView> {
           Spacer(),
           TextButton(
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => AllProductsView(),));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AllProductsView(),
+                    ));
               },
               child: Row(
                 children: [
@@ -132,8 +130,7 @@ class _HomePageViewState extends State<HomePageView> {
                   Container(
                     padding: context.paddingAllVeryLow,
                     margin: context.paddingOnlyLeftLow,
-                    decoration: BoxDecoration(
-                        color: Colors.green, shape: BoxShape.circle),
+                    decoration: BoxDecoration(color: Colors.green, shape: BoxShape.circle),
                     child: Icon(
                       MaterialCommunityIcons.arrow_right,
                       color: Colors.white,
@@ -183,9 +180,7 @@ class _HomePageViewState extends State<HomePageView> {
                 () {
                   return Icon(
                     Entypo.dot_single,
-                    color: _homePageController.pageViewIndex.value == index
-                        ? Colors.red
-                        : Colors.blue,
+                    color: _homePageController.pageViewIndex.value == index ? Colors.red : Colors.blue,
                   );
                 },
               );
@@ -208,34 +203,36 @@ class _HomePageViewState extends State<HomePageView> {
                 scrollDirection: Axis.horizontal,
                 itemCount: _homePageController.categories.length,
                 itemBuilder: (context, index) {
-                  return Container(
+                  return InkWell(
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CategoryDetailsView(categoryModel: _homePageController.categories[index]),
+                        )),
                     child: Padding(
                       padding: EdgeInsets.all(12),
-                      child: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [BoxShadow(color: Colors.black)],
-                                border:
-                                    Border.all(color: Colors.white, width: 4),
-                                shape: BoxShape.circle,
-                              ),
-                              child: CircleAvatar(
-                                radius: 30,
-                                backgroundImage: NetworkImage(_homePageController
-                                        .categories[index].categoryImageUrl ??
-                                    "https://erasmusnation-com.ams3.digitaloceanspaces.com/woocommerce-placeholder.png"),
-                              ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(color: Colors.black),
+                              ],
+                              border: Border.all(color: Colors.white, width: 4),
+                              shape: BoxShape.circle,
                             ),
-                            Padding(
-                              padding: EdgeInsets.only(top: 12),
-                              child: Text(
-                                  '${_homePageController.categories[index].categoryName}'),
-                            )
-                          ],
-                        ),
+                            child: CircleAvatar(
+                              radius: 30,
+                              backgroundImage: NetworkImage(_homePageController.categories[index].categoryImageUrl ??
+                                  "https://erasmusnation-com.ams3.digitaloceanspaces.com/woocommerce-placeholder.png"),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.only(top: 12),
+                            child: Text('${_homePageController.categories[index].categoryName}'),
+                          )
+                        ],
                       ),
                     ),
                   );
@@ -255,9 +252,7 @@ class _HomePageViewState extends State<HomePageView> {
             fillColor: Color(0xffF1F4FA),
             filled: true,
             contentPadding: context.paddingVerticalLow,
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(48),
-                borderSide: BorderSide(width: 0, style: BorderStyle.none))),
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(48), borderSide: BorderSide(width: 0, style: BorderStyle.none))),
       ),
     );
   }
@@ -274,9 +269,7 @@ class _HomePageViewState extends State<HomePageView> {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("Delivery adress",
-                      style: context.theme.textTheme.subtitle1!
-                          .copyWith(color: Colors.grey.shade700)),
+                  Text("Delivery adress", style: context.theme.textTheme.subtitle1!.copyWith(color: Colors.grey.shade700)),
                   Padding(
                     padding: context.paddingOnlyTopVeryLow,
                     child: Text(
@@ -288,20 +281,13 @@ class _HomePageViewState extends State<HomePageView> {
               ),
             ),
           ),
+          //TODO buraya favorilerim kısmı eklenebilir
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  CupertinoPageRoute(builder: (context) => CartPageView()));
+              Navigator.push(context, CupertinoPageRoute(builder: (context) => CartPageView()));
             },
             icon: Icon(
               AntDesign.shoppingcart,
-              color: Colors.grey.shade600,
-            ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: Icon(
-              Ionicons.notifications_outline,
               color: Colors.grey.shade600,
             ),
           ),

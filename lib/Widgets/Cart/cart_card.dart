@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shopism/Controllers/cart_page_controller.dart';
+import 'package:shopism/Core/Constants/Enums/getx_keys.dart';
 import 'package:shopism/Core/Extensions/context_extensions.dart';
 
 import '../../Models/Cart/cart_model.dart';
@@ -15,6 +18,7 @@ class CartCard extends StatefulWidget {
 
 class _CartCardState extends State<CartCard> {
   final borderRadius = BorderRadius.circular(12);
+  CartPageController _cartPageController = Get.find(tag: GetxKeys.CART_PAGE_CONTROLLER.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +26,11 @@ class _CartCardState extends State<CartCard> {
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       child: Dismissible(
         background: buildDismissibleBackground(),
-        secondaryBackground: buildDismissibleSecondaryBackground(),
+        direction: DismissDirection.endToStart,
         key: ValueKey("card"),
+        onDismissed: (dismissDirection) {
+            //cart controller remove
+        },
         child: Container(
           height: 160,
           child: Card(
@@ -38,9 +45,10 @@ class _CartCardState extends State<CartCard> {
                   width: 120,
                   color: Colors.red,
                   child: Image.network(
-                    "${widget.product.imageURL ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg"},",
+                    "${widget.product.imageURL}",
                     errorBuilder: (context, error, stackTrace) {
-                      return Image.network("https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",
+                      return Image.network(
+                        "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",
                         fit: BoxFit.fitWidth,
                       );
                     },
@@ -95,7 +103,9 @@ class _CartCardState extends State<CartCard> {
                   ),
                 ),
                 Text(
-                  "\$8.89",
+                  widget.product.price != null && widget.product.quantity != null
+                      ? "\₺${(widget.product.price! * widget.product.quantity!).toStringAsFixed(2)}"
+                      : "-",
                   style: context.appTheme.textTheme.subtitle2,
                 )
               ],
@@ -106,37 +116,23 @@ class _CartCardState extends State<CartCard> {
     );
   }
 
-  Card buildDismissibleSecondaryBackground() {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: borderRadius,
-      ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red,
-          borderRadius: borderRadius,
-        ),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: Icon(Icons.cancel_outlined),
-        ),
-      ),
-    );
-  }
-
   Card buildDismissibleBackground() {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
       ),
       child: Container(
+        padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: Colors.green,
+          color: Colors.red,
           borderRadius: borderRadius,
         ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Icon(Icons.check),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Icon(Icons.cancel_outlined),
+            Icon(Icons.cancel_outlined),
+          ],
         ),
       ),
     );

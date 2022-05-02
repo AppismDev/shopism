@@ -13,7 +13,6 @@ import 'package:shopism/Views/Splash/splash_screen.dart';
 import 'Controllers/product_details_controller.dart';
 import 'Controllers/user_controller.dart';
 import 'Core/Constants/Enums/getx_keys.dart';
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeApp();

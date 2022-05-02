@@ -13,12 +13,14 @@ class ProductDetailsController extends GetxController {
 
 
 
-  Future<void> addProductToCart(int productID, int count, String email) async {
+  Future<bool> addProductToCart(int productID, int count, String email) async {
     isAddingToCard.value = true;
     try {
-      await _shopismAPIService.addProductToCart(productID, count, email);
+      bool isAdded = await _shopismAPIService.addProductToCart(productID, count, email);
+      return isAdded;
     } catch (err) {
       print("error addproducttocard: " + err.toString());
+      return false;
     } finally {
       isAddingToCard.value = false;
     }

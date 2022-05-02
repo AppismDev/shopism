@@ -5,6 +5,7 @@ import 'package:shopism/Models/User/account_model.dart';
 import 'package:shopism/Models/User/login_model.dart';
 import 'package:shopism/Services/HTTPService/ShopIsmAPIservice/shopism_api_service.dart';
 
+//Signup ve login için controller ayıracaktım ama uğraşmadım
 class UserController extends GetxController {
   ShopismAPIService _apiService = ShopismAPIService.instance;
   UserCacheManager _userCacheManager = UserCacheManager.instance;
@@ -12,10 +13,15 @@ class UserController extends GetxController {
   // islogging -> Uygulama ilk açıldığında splash screene mi yoksa home screene mi atacağımızı belirleyen variable.
   var isLogging = false.obs;
 
+  RxBool isLoginPasswordHidden = true.obs;
+  RxBool isSignupPasswordHidden = true.obs;
   RxBool isSignupLoading = false.obs;
   RxBool isLoginLoading = false.obs;
   RxBool isLogoutLoading = false.obs;
   Rxn<AccountModel?> user = Rxn();
+
+  void toggleLoginPasswordHidden() => isLoginPasswordHidden.value = !isLoginPasswordHidden.value;
+  void toggleSignupPasswordHidden() => isSignupPasswordHidden.value = !isSignupPasswordHidden.value;
 
   Future<bool> login(LoginModel loginModel) async {
     isLoginLoading.value = true;
@@ -26,11 +32,8 @@ class UserController extends GetxController {
         //add user to cache
         await _userCacheManager.putItem(HiveKeys.USER_INFO, accountModel);
         user.value = accountModel;
-        print("login true ${user.value == null ? "value null" : "value null değil"}");
         return true;
-      }
-      else {
-        print("login false");
+      } else {
         return false;
       }
     } catch (err) {

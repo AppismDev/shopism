@@ -16,15 +16,15 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  var _userController = Get.put(UserController(), tag: GetxKeys.USER_CONTROLLER.toString());
+  late UserController _userController;
 
   @override
   void initState() {
     super.initState();
+    _userController = Get.put(UserController(), tag: GetxKeys.USER_CONTROLLER.toString());
     _userController.getUserFromCache();
-
-    // getUserFromCache
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
               child: CircularProgressIndicator(),
             );
           } else {
-            //TODO signout olduktan sonra signup login butonlarına basıp giriş yapmaya çalışırsak user value null olmamasına
-            //rağmen tabpageviewa yönlendirme yapmıyor bu satır çalışmıyor yani
             if (_userController.user.value != null) {
               return TabPageView();
             } else {

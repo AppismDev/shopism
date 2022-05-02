@@ -28,11 +28,12 @@ class _SignupViewState extends State<SignupView> {
   late TextEditingController _phoneNumberController;
   late GlobalKey<FormState> _formKey;
 
-  UserController _userController = Get.find(tag: GetxKeys.USER_CONTROLLER.toString());
+  late UserController _userController;
 
   @override
   void initState() {
     super.initState();
+    _userController =  Get.find(tag: GetxKeys.USER_CONTROLLER.toString());
     _nameController = TextEditingController();
     _surnameController = TextEditingController();
     _emailController = TextEditingController();
@@ -112,11 +113,7 @@ class _SignupViewState extends State<SignupView> {
             children: <WidgetSpan>[
               WidgetSpan(
                 child: GestureDetector(
-                  onTap: () => Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => LoginView(),
-                      )),
+                  onTap: () => Navigator.pop(context),
                   child: Text(
                     'Login',
                     style: context.appTheme.textTheme.bodyMedium?.copyWith(
@@ -156,9 +153,30 @@ class _SignupViewState extends State<SignupView> {
 
             _userController.signup(accountModel).then((value) {
               if (value) {
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Kaydolma başarılı. Giriş yap")));
+                ScaffoldMessenger.of(context).showSnackBar(
+                  context.customSnackbar(
+                    title: "Kayıt Başarılı",
+                    subtitle: "Kayıt başarıyla gerçekleşti. Lütfen giriş yapın.",
+                    icon: Icon(
+                      AntDesign.checkcircleo,
+                      color: Colors.green,
+                    ),
+                    borderColor: Colors.green,
+                  ),
+                );
               } else {
-                SnackBar(content: Text("Kaydolma başarısız. Tekrar dene"));
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  context.customSnackbar(
+                    title: "Kaydolma Başarısız",
+                    subtitle: "Kayıt yapılırken bir hata oluştu. Lütfen tekrar deneyin",
+                    icon: Icon(
+                      AntDesign.closecircleo,
+                      color: Colors.red,
+                    ),
+                    borderColor: Colors.red,
+                  ),
+                );
               }
             });
           }
@@ -233,14 +251,21 @@ class _SignupViewState extends State<SignupView> {
   Padding buildPasswordForm(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
-      child: TextFormField(
+      child: Obx(() => TextFormField(
+        obscureText: _userController.isSignupPasswordHidden.value,
         validator: (text) => text!.isLessThanThreeCharacters() ? "Please enter a password more than 3 characters" : null,
         controller: _passwordController,
         decoration: InputDecoration(
           icon: Icon(Feather.lock),
+          suffixIcon: IconButton(
+            icon: Icon(_userController.isSignupPasswordHidden.value ? Feather.eye_off : Feather.eye),
+            onPressed: () {
+              _userController.toggleSignupPasswordHidden();
+            },
+          ),
           hintText: "Password",
         ),
-      ),
+      ),),
     );
   }
 

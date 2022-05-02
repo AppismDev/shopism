@@ -20,7 +20,7 @@ class _TabPageViewState extends State<TabPageView> with SingleTickerProviderStat
   static const List<Widget> _widgets = [
     HomePageView(),
     ProfilePage(),
-    ProfilePage(),
+    // ProfilePage(),
   ];
 
   @override
@@ -43,7 +43,6 @@ class _TabPageViewState extends State<TabPageView> with SingleTickerProviderStat
         destinations: [
           NavigationDestination(selectedIcon: Icon(Icons.home), icon: Icon(Icons.home_outlined), label: "Home"),
           NavigationDestination(selectedIcon: Icon(Icons.person), icon: Icon(Icons.person_outline), label: "Profile"),
-          NavigationDestination(selectedIcon: Icon(Icons.settings),icon: Icon(Icons.settings_outlined), label: "Settings"),
         ],
       ),
       // bottomNavigationBar: BottomNavigationBar(

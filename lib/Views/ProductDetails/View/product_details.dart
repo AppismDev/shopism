@@ -222,12 +222,11 @@ class _ProductDetailsState extends State<ProductDetails> {
 
   Container buildImageContainer(BuildContext context) {
     return Container(
-      color: Colors.red,
       width: double.infinity,
       height: context.dynamicHeight(0.6),
       child: Image.network(
         "${widget.product.productImage?.url ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg"}",
-        fit: BoxFit.fill,
+        fit: BoxFit.cover,
       ),
     );
   }
@@ -296,9 +295,37 @@ class _ProductDetailsState extends State<ProductDetails> {
                     ),
                     onPressed: _detailsController.isAddingToCard.value
                         ? () {}
-                        : () {
+                        : () async {
                             if (widget.product.productId != null && (_userController.user.value != null)) {
-                              _detailsController.addProductToCart(widget.product.productId!, 1, _userController.user.value!.email);
+                              bool isAdded =
+                                  await _detailsController.addProductToCart(widget.product.productId!, 1, _userController.user.value!.email);
+                              if (isAdded) {
+                                //eklendi toast message
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  context.customSnackbar(
+                                    title: "Ekleme Başarılı",
+                                    subtitle: "Ürün sepete başarıyla eklendi.",
+                                    icon: Icon(
+                                      AntDesign.checkcircleo,
+                                      color: Colors.green,
+                                    ),
+                                    borderColor: Colors.green,
+                                  ),
+                                );
+                              }
+                              else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  context.customSnackbar(
+                                    title: "Ekleme Başarısız",
+                                    subtitle: "Ürün sepete eklenirken bir hata oluştu.",
+                                    icon: Icon(
+                                      AntDesign.closecircleo,
+                                      color: Colors.red,
+                                    ),
+                                    borderColor: Colors.red,
+                                  ),
+                                );
+                              }
                             }
                           },
                     child: Container(

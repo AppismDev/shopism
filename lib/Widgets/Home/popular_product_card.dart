@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
 import 'package:shopism/Controllers/favorites_controller.dart';
 import 'package:shopism/Core/Constants/Enums/getx_keys.dart';
@@ -8,9 +7,10 @@ import 'package:shopism/Core/Extensions/context_extensions.dart';
 import 'package:shopism/Core/Init/Cache/favorites_cache_manager.dart';
 import 'package:shopism/Core/Utils/utils.dart';
 import 'package:shopism/Models/Product/product_model.dart';
-import 'package:shopism/Views/HomeDetails/View/product_details.dart';
-import 'package:shopism/Widgets/Drawings/discount_icon_clipper.dart';
 
+import '../../Views/ProductDetails/View/product_details.dart';
+
+//başta popular product kısmı içindi ama her yerde kullandım sonradan
 class PopularProductCard extends StatelessWidget {
   Product product;
 
@@ -48,8 +48,7 @@ class PopularProductCard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     child: Image.network(
-                      product.productImage?.url ??
-                          "https://toppng.com/uploads/preview/clipart-free-seaweed-clipart-draw-food-placeholder-11562968708qhzooxrjly.png",
+                      product.productImage?.url ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",
                       height: 100,
                       fit: BoxFit.cover,
                     ),
