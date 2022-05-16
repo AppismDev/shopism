@@ -49,6 +49,10 @@ class PopularProductCard extends StatelessWidget {
                     width: double.infinity,
                     child: Image.network(
                       product.productImage?.url ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",
+                      errorBuilder: (context, error, stackTrace) {
+                        return Image.network("https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",       height: 100,
+                        fit: BoxFit.cover,);
+                      },
                       height: 100,
                       fit: BoxFit.cover,
                     ),
