@@ -69,7 +69,7 @@ class _SignupViewState extends State<SignupView> {
               Padding(
                 padding: context.paddingOnlyLeftMedium,
                 child: Text(
-                  "Sign Up",
+                  "Kayıt ol",
                   style: context.appTheme.textTheme.headline4?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -108,14 +108,14 @@ class _SignupViewState extends State<SignupView> {
         alignment: Alignment.center,
         child: RichText(
           text: TextSpan(
-            text: 'Already have an account? ',
+            text: 'Hesabın var mı?',
             style: context.theme.textTheme.bodyMedium,
             children: <WidgetSpan>[
               WidgetSpan(
                 child: GestureDetector(
                   onTap: () => Navigator.pop(context),
                   child: Text(
-                    'Login',
+                    ' Giriş Yap',
                     style: context.appTheme.textTheme.bodyMedium?.copyWith(
                       color: Colors.blue.shade700,
                       fontWeight: FontWeight.bold,
@@ -199,7 +199,7 @@ class _SignupViewState extends State<SignupView> {
         bottom: context.lowValue,
       ),
       child: Text(
-        "By signing up, you're agree to our Terms & Conditions and Privacy Policy",
+        "Kaydolarak, Shopism'in kullanım koşullarını ve Gizlilik Politikasını kabul etmiş olursunuz.",
         style: context.appTheme.textTheme.caption,
       ),
     );
@@ -209,11 +209,11 @@ class _SignupViewState extends State<SignupView> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: TextFormField(
-        validator: (text) => text!.isLessThanThreeCharacters() ? "Please enter a name more than 3 characters" : null,
+        validator: (text) => text!.isLessThanThreeCharacters() ? "3 karakterden uzun bir isim giriniz." : null,
         controller: _nameController,
         decoration: InputDecoration(
           icon: Icon(Ionicons.person_outline),
-          hintText: "Name",
+          hintText: "Ad",
         ),
       ),
     );
@@ -223,11 +223,11 @@ class _SignupViewState extends State<SignupView> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: TextFormField(
-        validator: (text) => text!.isLessThanThreeCharacters() ? "Please enter a surname more than 3 characters" : null,
+        validator: (text) => text!.isLessThanThreeCharacters() ? "3 karakterden uzun bir soyisim giriniz." : null,
         controller: _surnameController,
         decoration: InputDecoration(
           icon: Icon(Ionicons.person_outline),
-          hintText: "Surname",
+          hintText: "Soyad",
         ),
       ),
     );
@@ -238,7 +238,7 @@ class _SignupViewState extends State<SignupView> {
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
-        validator: (text) => text!.isValidEmail() ? null : "Please enter a valid email",
+        validator: (text) => text!.isValidEmail() ? null : "Lütfen geçerli bir email adresi giriniz.",
         controller: _emailController,
         decoration: InputDecoration(
           icon: Icon(Ionicons.mail_outline),
@@ -253,7 +253,7 @@ class _SignupViewState extends State<SignupView> {
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: Obx(() => TextFormField(
         obscureText: _userController.isSignupPasswordHidden.value,
-        validator: (text) => text!.isLessThanThreeCharacters() ? "Please enter a password more than 3 characters" : null,
+        validator: (text) => text!.isLessThanThreeCharacters() ? "Lütfen 3 karakterden daha uzun bir şifre giriniz" : null,
         controller: _passwordController,
         decoration: InputDecoration(
           icon: Icon(Feather.lock),
@@ -263,7 +263,7 @@ class _SignupViewState extends State<SignupView> {
               _userController.toggleSignupPasswordHidden();
             },
           ),
-          hintText: "Password",
+          hintText: "Şifre",
         ),
       ),),
     );
@@ -274,11 +274,11 @@ class _SignupViewState extends State<SignupView> {
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: TextFormField(
         keyboardType: TextInputType.number,
-        validator: (text) => text!.isValidIdentityNumber() ? null : "Please enter a valid identity number",
+        validator: (text) => text!.isValidIdentityNumber() ? null : "Lütfen geçerli bir TC kimlik numarası giriniz.",
         controller: _idNumberController,
         decoration: InputDecoration(
           icon: Icon(AntDesign.idcard),
-          hintText: "Identify Number",
+          hintText: "TC Kimlik No",
         ),
       ),
     );
@@ -289,11 +289,11 @@ class _SignupViewState extends State<SignupView> {
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: TextFormField(
         keyboardType: TextInputType.number,
-        validator: (text) => text!.isValidPhoneNumber() ? null : "Please enter a valid phone number",
+        validator: (text) => text!.isValidPhoneNumber() ? null : "Lütfen geçerli bir telefon numarası giriniz.",
         controller: _phoneNumberController,
         decoration: InputDecoration(
           icon: Icon(AntDesign.phone),
-          hintText: "Phone Number",
+          hintText: "Telefon Numarası",
         ),
       ),
     );

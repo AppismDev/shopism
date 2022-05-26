@@ -10,6 +10,18 @@ class CartPageController extends GetxController {
   RxBool isCartLoading = false.obs;
   RxBool isCartItemLoading = false.obs;
   RxList<CartModel> cartItems = <CartModel>[].obs;
+  RxDouble totalCount = 0.0.obs;
+
+
+  void calculateTotalCount(){
+    totalCount.value = 0;
+    if(cartItems.isNotEmpty){
+      cartItems.forEach((element) {
+        print(element.price);
+        totalCount.value += element.price ?? 0;
+      });
+    }
+  }
 
   Future<void> getCartItems(String email) async {
       isCartLoading.value = true;
@@ -23,11 +35,15 @@ class CartPageController extends GetxController {
 
   Future<bool> removeCartItem(CartModel product) async{
     isCartItemLoading.value = true;
-
-    cartItems.removeWhere((element) => element.productId == product.productId);
+    if(product.cartItem != null){
+      cartItems.removeWhere((element) => element.cartItem == product.cartItem);
+      await _shopismAPIService.removeItemFromCart(product.cartItem!);
+      isCartItemLoading.value = false;
+    } else {
+      print("ürün kaldırırken bir hata oluştu");
+      isCartItemLoading.value = false;
+    }
     return false;
-
-
   }
 
   // Future<void> refreshCart(String email) async{

@@ -11,9 +11,10 @@ class Utils {
     _instance ??= Utils._init();
     return _instance!;
   }
-
+  static String creditCart = "Kredi Kartı";
+  static String havale = "Havale/EFT";
   double calculateDiscountedPrice(double price, double discountRate) {
-    return price - (price * (discountRate / 100));
+    return price - ((price * (discountRate * 100)) / 100);
   }
 
   String setAddressString(AccountModel? accountModel) {

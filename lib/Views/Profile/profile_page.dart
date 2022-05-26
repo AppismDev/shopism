@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           child: Icon(Icons.email)),
                       title: Text(
-                        "Email Address",
+                        "Email Adresi",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text("${_userController.user.value?.email}"),
@@ -87,7 +87,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           child: Icon(Icons.phone)),
                       title: Text(
-                        "Phone Number",
+                        "Telefon Numarası",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text("${_userController.user.value?.phone}"),
@@ -102,7 +102,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Icon(Icons.flag),
                       ),
                       title: Text(
-                        "Country",
+                        "Ülke",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text("${_userController.user.value?.country}"),
@@ -117,7 +117,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Icon(Entypo.address),
                       ),
                       title: Text(
-                        "Delivery Address",
+                        "Teslimat Adresi",
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text("${_utils.setAddressString(_userController.user.value)}"),

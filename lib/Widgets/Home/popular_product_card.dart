@@ -48,7 +48,7 @@ class PopularProductCard extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     child: Image.network(
-                      product.productImage?.url ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",
+                      "${product.productImage?.url}",
                       errorBuilder: (context, error, stackTrace) {
                         return Image.network("https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",       height: 100,
                         fit: BoxFit.cover,);
@@ -91,7 +91,7 @@ class PopularProductCard extends StatelessWidget {
                           ),
                           child: Center(
                             child: Text(
-                              "%${product.productDiscountRate}",
+                              "%${(product.productDiscountRate! * 100).toStringAsFixed(0)}",
                               style: context.appTheme.textTheme.bodyMedium?.copyWith(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
                           ),
@@ -129,7 +129,7 @@ class PopularProductCard extends StatelessWidget {
                       children: [
                         if (product.productPrice != null && product.productDiscountRate != null && product.productDiscountRate != 0) ...[
                           Text(
-                            "\₺${_utils.calculateDiscountedPrice(product.productPrice!, product.productDiscountRate!.toDouble()).ceilToDouble()}",
+                            "\₺${_utils.calculateDiscountedPrice(product.productPrice!, product.productDiscountRate!).toStringAsFixed(2)}",
                             style: context.appTheme.textTheme.headline6!.copyWith(color: context.appTheme.primaryColor),
                           ),
                           Expanded(

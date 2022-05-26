@@ -153,7 +153,7 @@ class ProductAdapter extends TypeAdapter<Product> {
       productName: fields[4] as String?,
       productPrice: fields[5] as double?,
       productDescription: fields[6] as String?,
-      productDiscountRate: fields[7] as int?,
+      productDiscountRate: fields[7] as double?,
     );
   }
 

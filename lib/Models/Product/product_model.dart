@@ -124,7 +124,7 @@ class Product {
   @HiveField(6)
   String? productDescription;
   @HiveField(7)
-  int? productDiscountRate;
+  double? productDiscountRate;
 
   Product({
     this.productId,
@@ -150,7 +150,7 @@ class Product {
     productName = json['product_name']?.toString();
     productPrice = json['product_price']?.toDouble();
     productDescription = json['product_description']?.toString();
-    productDiscountRate = json['product_discount_rate']?.toInt();
+    productDiscountRate = json['product_discount_rate']?.toDouble();
   }
 
   Map<String, dynamic> toJson() {

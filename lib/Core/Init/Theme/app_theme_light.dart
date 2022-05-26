@@ -14,12 +14,10 @@ class AppThemeLight implements IAppTheme {
   ThemeData themeData = ThemeData.light().copyWith(
       primaryColor: Color(0xffE58228),
       navigationBarTheme: NavigationBarThemeData().copyWith(
-
         indicatorColor: Colors.white.withOpacity(0.3),
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.grey.shade200,
         height: 60,
         labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
-        // iconTheme: MaterialStateProperty.all<IconThemeData>(IconThemeData(color: Colors.white))
       ),
       bottomNavigationBarTheme:
           BottomNavigationBarThemeData().copyWith(selectedItemColor: Color(0xffE58228), selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold)),

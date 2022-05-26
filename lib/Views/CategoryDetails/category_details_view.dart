@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shopism/Controllers/category_details_page_controller.dart';
 import 'package:shopism/Core/Constants/Enums/getx_keys.dart';
 import 'package:shopism/Core/Extensions/context_extensions.dart';
@@ -29,10 +30,12 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(
-        "${widget.categoryModel.categoryName} Products",
-        style: context.appTheme.textTheme.headline5,
-      ),),
+      appBar: AppBar(
+        title: Text(
+          "${widget.categoryModel.categoryName} Ürünleri",
+          style: context.appTheme.textTheme.headline5,
+        ),
+      ),
       body: SafeArea(
         child: Obx(
           () {
@@ -42,35 +45,47 @@ class _CategoryDetailsViewState extends State<CategoryDetailsView> {
                 child: Container(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(child: Center(child: CircularProgressIndicator()))
-                    ],
+                    children: [Expanded(child: Center(child: CircularProgressIndicator()))],
                   ),
                 ),
               );
             } else {
-              return SingleChildScrollView(
-                child: Padding(
-                  padding: EdgeInsets.all(12),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      GridView.builder(
-                          shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: _categoryDetailsController.products.length,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 10, mainAxisExtent: 230),
-                          itemBuilder: (context, index) {
-                            return Container(
-                              child: PopularProductCard(product: _categoryDetailsController.products[index]),
-                            );
-                          }),
-                    ],
+              if (_categoryDetailsController.products.isEmpty) {
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Lottie.asset("assets/lottie/data_not_found.json"),
+                    Text(
+                      "Bu kategoride ürün bulunamadı.",
+                      style: context.textTheme.headline4,
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                );
+              } else {
+                return SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(12),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        GridView.builder(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: _categoryDetailsController.products.length,
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2, mainAxisSpacing: 20, crossAxisSpacing: 10, mainAxisExtent: 230),
+                            itemBuilder: (context, index) {
+                              return Container(
+                                child: PopularProductCard(product: _categoryDetailsController.products[index]),
+                              );
+                            }),
+                      ],
+                    ),
                   ),
-                ),
-              );
+                );
+              }
             }
           },
         ),

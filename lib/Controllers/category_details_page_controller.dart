@@ -16,6 +16,10 @@ class CategoryDetailsController extends GetxController {
     try {
       List<Product> _products = await _shopismAPIService.getCategoryItems(categoryModel);
       products.addAll(_products);
+      products.forEach((element) {
+        print(element.productImage?.url);
+
+      });
     } catch (err) {
       print("error categorydetails controller getx ${err}");
     } finally {

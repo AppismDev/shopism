@@ -16,3 +16,4 @@ class HiveConstants {
   static const productCategoryTypeID = 4;
 
 }
+

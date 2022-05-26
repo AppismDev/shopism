@@ -63,7 +63,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Description",
+            "Açıklama",
             style: context.appTheme.textTheme.headline6,
           ),
           Padding(
@@ -71,13 +71,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: Text(
               "${widget.product.productDescription ?? "Bu ürünün açıklaması yok."}",
               style: context.appTheme.textTheme.subtitle1!.copyWith(color: Colors.grey.shade600),
-            ),
-          ),
-          InkWell(
-            onTap: () {},
-            child: Text(
-              "Read more",
-              style: context.appTheme.textTheme.subtitle1!.copyWith(color: context.appTheme.primaryColor, fontWeight: FontWeight.bold),
             ),
           ),
         ],
@@ -163,7 +156,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                           widget.product.productDiscountRate != null &&
                           widget.product.productDiscountRate != 0) ...[
                         Text(
-                          "\₺${_utils.calculateDiscountedPrice(widget.product.productPrice!, widget.product.productDiscountRate!.toDouble()).ceilToDouble()}",
+                          "\₺${_utils.calculateDiscountedPrice(widget.product.productPrice!, widget.product.productDiscountRate!).toStringAsFixed(2)}",
                           style: context.appTheme.textTheme.headline5!.copyWith(color: context.appTheme.primaryColor, fontWeight: FontWeight.bold),
                         ),
                         Padding(
@@ -226,6 +219,10 @@ class _ProductDetailsState extends State<ProductDetails> {
       height: context.dynamicHeight(0.6),
       child: Image.network(
         "${widget.product.productImage?.url ?? "https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg"}",
+        errorBuilder: (context, error, stackTrace) {
+          return Image.network("https://innovating.capital/wp-content/uploads/2021/05/vertical-placeholder-image.jpg",       height: 100,
+            fit: BoxFit.cover,);
+        },
         fit: BoxFit.cover,
       ),
     );
@@ -272,14 +269,14 @@ class _ProductDetailsState extends State<ProductDetails> {
                     return Text(
                       widget.product.productDiscountRate == null || widget.product.productDiscountRate == 0
                           ? "${(widget.product.productPrice! * _detailsController.productCount.value).toStringAsFixed(2)}"
-                          : "\₺${(_utils.calculateDiscountedPrice(widget.product.productPrice!, widget.product.productDiscountRate!.toDouble()).ceilToDouble() * _detailsController.productCount.value).toStringAsFixed(2)}",
+                          : "\₺${(_utils.calculateDiscountedPrice(widget.product.productPrice!, widget.product.productDiscountRate!) * _detailsController.productCount.value).toStringAsFixed(2)}",
                       style: context.appTheme.textTheme.headline5!.copyWith(fontWeight: FontWeight.bold),
                     );
                   },
                 ),
                 Obx(
                   () => Text(
-                    "${_detailsController.productCount} items",
+                    "${_detailsController.productCount} tane",
                     style: context.appTheme.textTheme.subtitle1!.copyWith(color: Colors.grey.shade700),
                   ),
                 )
@@ -298,7 +295,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         : () async {
                             if (widget.product.productId != null && (_userController.user.value != null)) {
                               bool isAdded =
-                                  await _detailsController.addProductToCart(widget.product.productId!, 1, _userController.user.value!.email);
+                                  await _detailsController.addProductToCart(widget.product.productId!, _detailsController.productCount.value, _userController.user.value!.email);
                               if (isAdded) {
                                 //eklendi toast message
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -335,7 +332,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
-                            _detailsController.isAddingToCard.value ? "Adding to Basket" : "Add to Basket",
+                            _detailsController.isAddingToCard.value ? "Sepete Ekleniyor" : "Sepete Ekle",
                             style: context.appTheme.textTheme.subtitle1!.copyWith(color: Colors.white),
                           ),
                           Padding(

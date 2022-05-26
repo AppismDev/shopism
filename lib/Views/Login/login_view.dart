@@ -45,7 +45,7 @@ class _LoginViewState extends State<LoginView> {
               Padding(
                 padding: context.paddingOnlyLeftMedium,
                 child: Text(
-                  "Login",
+                  "Giriş Yap",
                   style: context.appTheme.textTheme.headline4?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
@@ -76,7 +76,7 @@ class _LoginViewState extends State<LoginView> {
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: TextFormField(
         keyboardType: TextInputType.emailAddress,
-        validator: (text) => text!.isValidEmail() ? null : "Please enter a valid email",
+        validator: (text) => text!.isValidEmail() ? null : "Geçersiz email",
         controller: _emailController,
         decoration: InputDecoration(
           icon: Icon(Ionicons.mail_outline),
@@ -91,7 +91,7 @@ class _LoginViewState extends State<LoginView> {
       padding: EdgeInsets.symmetric(horizontal: context.mediumValue, vertical: context.lowValue),
       child: Obx(() => TextFormField(
         obscureText: _userController.isLoginPasswordHidden.value,
-        validator: (text) => text!.isLessThanThreeCharacters() ? "Please enter a password more than 3 characters" : null,
+        validator: (text) => text!.isLessThanThreeCharacters() ? "Geçersiz şifre" : null,
         controller: _passwordController,
         decoration: InputDecoration(
           icon: Icon(Feather.lock),
@@ -101,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
               _userController.toggleLoginPasswordHidden();
             },
           ),
-          hintText: "Password",
+          hintText: "Şifre",
         ),
       )),
     );
@@ -142,7 +142,7 @@ class _LoginViewState extends State<LoginView> {
                     strokeWidth: 3,
                     color: Colors.white,
                   ))
-              : Text("Login"),
+              : Text("Giriş Yap"),
         ),
       ),
     );
@@ -156,7 +156,7 @@ class _LoginViewState extends State<LoginView> {
         child: RichText(
           text: TextSpan(
             text: ''
-                'New to Shopism?  ',
+                'Shopism\'de yeni misin?  ',
             style: context.theme.textTheme.bodyMedium,
             children: <WidgetSpan>[
               WidgetSpan(
@@ -168,7 +168,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   child: Text(
-                    'Sign up',
+                    'Kayıt Ol',
                     style: context.appTheme.textTheme.bodyMedium?.copyWith(
                       color: Colors.blue.shade700,
                       fontWeight: FontWeight.bold,
