@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:shopism/Widgets/SnackBar/snackbar_content.dart';
 
 extension NumberExtension on BuildContext {
   double get veryLowValue => dynamicHeight(0.005);
@@ -16,16 +15,28 @@ extension MediaQueryExtensions on BuildContext {
   double dynamicWidth(double value) => MediaQuery.of(this).size.width * value;
 
   double dynamicHeight(double value) => MediaQuery.of(this).size.height * value;
-
 }
-
 
 extension ContextExtension on BuildContext {
-    ThemeData get theme => Theme.of(this);
-
+  ThemeData get appTheme => Theme.of(this);
 }
 
-extension PaddingExtension  on BuildContext {
+extension SnackBarExtension on BuildContext {
+  SnackBar customSnackbar({required String title, required Icon icon, required String subtitle, required Color borderColor}) {
+    return SnackBar(
+      elevation: 0,
+      backgroundColor: Colors.transparent,
+      content: SnackbarContent(
+        title: title,
+        subtitle: subtitle,
+        icon: icon,
+        borderColor: borderColor,
+      ),
+    );
+  }
+}
+
+extension PaddingExtension on BuildContext {
   //All
   EdgeInsets get paddingAllVeryLow => EdgeInsets.all(veryLowValue);
 
@@ -45,6 +56,8 @@ extension PaddingExtension  on BuildContext {
   //Vertical
 
   EdgeInsets get paddingVerticalLow => EdgeInsets.symmetric(vertical: lowValue);
+
+  EdgeInsets get paddingVerticalVeryLow => EdgeInsets.symmetric(vertical: veryLowValue);
 
   EdgeInsets get paddingVerticalMedium => EdgeInsets.symmetric(vertical: mediumValue);
 
@@ -86,7 +99,4 @@ extension PaddingExtension  on BuildContext {
   EdgeInsets get paddingOnlyRightMedium => EdgeInsets.only(right: mediumValue);
 
   EdgeInsets get paddingOnlyRightHigh => EdgeInsets.only(right: highValue);
-
-
 }
-
